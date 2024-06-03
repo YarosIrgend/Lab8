@@ -11,7 +11,7 @@ namespace Lab8
 
         public bool IsExamined = false;
 
-        public bool IsAppointed = false; 
+        public bool IsAppointed; 
         
         public Patient(string name, string surname, Doctor doctor)
         {
@@ -29,7 +29,6 @@ namespace Lab8
                 Thread.Sleep(1000);
                 return;
             }
-            Console.Clear();
             Console.Write("Введіть час прийому: ");
             string chosenTime = Console.ReadLine();
             foreach (var time in Doctor.Schedule.FreeSchedule)
@@ -47,13 +46,13 @@ namespace Lab8
                     Doctor.Appointments.Add(appointment);
                     Doctor.AddPatient(this);
                     Doctor.Schedule.FreeSchedule.Remove(chosenTime);
+                    IsAppointed = true;
                     Console.WriteLine("Записано");
                     Thread.Sleep(1000);
                     return;
                 }
             }
 
-            IsAppointed = true;
             Console.WriteLine("Лікар в цей час не приймає або зайнятий");
             Thread.Sleep(1000);
         }

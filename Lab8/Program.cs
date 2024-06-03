@@ -131,11 +131,7 @@ namespace Lab8
                     case (int)DoctorChoices.PassAppointment:
                         Console.Clear();
                         Doctor doctor = hospital.DoctorSearch();
-                        if (doctor == null)
-                        {
-                            return;
-                        }
-                        doctor.PassAppointment();
+                        doctor?.PassAppointment();
                         break;
                 }
             } while (userChoice != (int)DoctorChoices.Exit);
@@ -179,20 +175,12 @@ namespace Lab8
                     case (int)PatientChoices.EditPatientMedicalCard:
                         Console.Clear();
                         Doctor doctor = hospital.DoctorSearch();
-                        if (doctor == null)
-                        {
-                            return;
-                        }
-                        doctor.ChangePatientData();
+                        doctor?.ChangePatientData();
                         break;
                     
                     case (int)PatientChoices.MakeAppointment:
                         Patient patient = hospital.PatientSearch();
-                        if (patient == null)
-                        {
-                            return;
-                        }
-                        patient.AddAppointment();
+                        patient?.AddAppointment();
                         break;
                 }
             } while (userChoice != (int)PatientChoices.Exit);
