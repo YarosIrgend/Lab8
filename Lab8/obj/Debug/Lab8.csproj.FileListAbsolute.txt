@@ -1,0 +1,7 @@
+C:\Users\Yaroslav\RiderProjects\Lab8\Lab8\obj\Debug\Lab8.csproj.AssemblyReference.cache
+C:\Users\Yaroslav\RiderProjects\Lab8\Lab8\obj\Debug\Lab8.csproj.SuggestedBindingRedirects.cache
+C:\Users\Yaroslav\RiderProjects\Lab8\Lab8\obj\Debug\Lab8.csproj.CoreCompileInputs.cache
+C:\Users\Yaroslav\RiderProjects\Lab8\Lab8\bin\Debug\Lab8.exe
+C:\Users\Yaroslav\RiderProjects\Lab8\Lab8\bin\Debug\Lab8.pdb
+C:\Users\Yaroslav\RiderProjects\Lab8\Lab8\obj\Debug\Lab8.exe
+C:\Users\Yaroslav\RiderProjects\Lab8\Lab8\obj\Debug\Lab8.pdb
