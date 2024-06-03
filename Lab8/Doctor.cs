@@ -12,12 +12,13 @@ namespace Lab8
         
         public List<Patient> Patients = new List<Patient>();
         
-        public Doctor(string name, string surname, Schedule schedule, string speciality)
+        public Doctor(string name, string surname, Schedule schedule, string speciality, Hospital hospital)
         {
             Name = name;
             Surname = surname;
             Schedule = schedule;
             Speciality = speciality;
+            Hospital = hospital;
         }
 
         public void ChangeData()
@@ -66,6 +67,7 @@ namespace Lab8
             if (isHealthy)
             {
                 Hospital.PatientsList.Remove(patient);
+                Patients.Remove(patient);
             }
         }
 

@@ -32,7 +32,8 @@ namespace Lab8
     {
         public static void Main()
         {
-            Console.OutputEncoding = Encoding.UTF8;
+            Console.OutputEncoding = Encoding.Default;
+            Console.InputEncoding = Encoding.Default;
             Hospital hospital = new Hospital();
             int userChoice = 0;
             do
@@ -162,6 +163,10 @@ namespace Lab8
                     
                     case (int)PatientChoices.EditPatientMedicalCard:
                         Doctor doctor = hospital.DoctorSearch();
+                        if (doctor == null)
+                        {
+                            return;
+                        }
                         doctor.ChangePatientData();
                         break;
                 }

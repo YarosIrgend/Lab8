@@ -12,7 +12,7 @@ namespace Lab8
             MedicalCardRecord record = new MedicalCardRecord();
             Console.Write("Введіть день: ");
             record.Day = int.Parse(Console.ReadLine());
-            Console.Write("Введіть діагноз (Щоб виписати, напишіть \"Здоровий\": ");
+            Console.Write("Введіть діагноз (Щоб виписати, напишіть \"Здоровий\"): ");
             record.Diagnosis = Console.ReadLine();
             Console.Write("Напишіть коментар: ");
             record.Comment = Console.ReadLine();
@@ -20,7 +20,7 @@ namespace Lab8
             {
                 return true;
             }
-
+            medicalCard.Add(record);
             return false;
         }
 
@@ -30,11 +30,10 @@ namespace Lab8
             {
                 Console.WriteLine($"День - {record.Day}");
                 Console.WriteLine($"Діагноз - {record.Diagnosis}");
-                Console.WriteLine($"Коментар - {record.Comment}");
-                Console.WriteLine("Натисніть Enter, щоб закрити");
+                Console.WriteLine($"Коментар - {record.Comment}\n");
             }
 
-            Console.WriteLine("Натисніть Enter, щоб закрити");
+            Console.WriteLine("\nНатисніть Enter, щоб закрити");
             Console.Read();
         }
     }

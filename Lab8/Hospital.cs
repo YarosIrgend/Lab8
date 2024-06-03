@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Text;
 
 namespace Lab8
 {
     public class Hospital : IChangeable
     {
         private List<Doctor> _doctorsList = new List<Doctor>();
-        private List<Patient> _patientsList = new List<Patient>();
+        public List<Patient> _patientsList = new List<Patient>();
 
         public List<Doctor> DoctorsList
         {
@@ -21,11 +22,11 @@ namespace Lab8
         
         public Hospital()
         {
-            _doctorsList.Add(new Doctor("Микола", "Соколов", new Schedule("10:00", "15:00"), "Кардіолог"));
-            _doctorsList.Add(new Doctor("Олександр", "Богомолець", new Schedule("11:30", "16:00"), "Онколог"));
-            _doctorsList.Add(new Doctor("П'єр", "Фошар", new Schedule("09:00", "12:30"), "Стоматолог"));
-            _doctorsList.Add(new Doctor("Сергій", "Риков", new Schedule("10:00", "13:00"), "Офтальмолог"));
-            _doctorsList.Add(new Doctor("Тарік", "Акар", new Schedule("11:00", "16:00"), "Гастроентеролог"));
+            _doctorsList.Add(new Doctor("Микола", "Соколов", new Schedule("10:00", "15:00"), "Кардіолог", this));
+            _doctorsList.Add(new Doctor("Олександр", "Богомолець", new Schedule("11:30", "16:00"), "Онколог", this));
+            _doctorsList.Add(new Doctor("П'єр", "Фошар", new Schedule("09:00", "12:30"), "Стоматолог", this));
+            _doctorsList.Add(new Doctor("Сергій", "Риков", new Schedule("10:00", "13:00"), "Офтальмолог", this));
+            _doctorsList.Add(new Doctor("Тарік", "Акар", new Schedule("11:00", "16:00"), "Гастроентеролог", this));
         }
 
         public void AddDoctor()
@@ -41,7 +42,7 @@ namespace Lab8
             Schedule schedule = new Schedule(workStart, workEnd);
             Console.Write("Введіть спеціальність: ");
             string speciality = Console.ReadLine();
-            _doctorsList.Add(new Doctor(name, surname, schedule, speciality));
+            _doctorsList.Add(new Doctor(name, surname, schedule, speciality, this));
             Console.WriteLine("Додано");
             Thread.Sleep(1000);
         }
@@ -61,11 +62,7 @@ namespace Lab8
         {
             Console.Clear();
             Doctor doctor = DoctorSearch();
-            if (doctor == null)
-            {
-                return;
-            }
-            doctor.ChangeData();
+            doctor?.ChangeData();
         }
 
         public void AddPatient()
@@ -80,7 +77,10 @@ namespace Lab8
             {
                 return;
             }
-            _patientsList.Add(new Patient(name, surname));
+
+            Patient patient = new Patient(name, surname, doctor);
+            _patientsList.Add(patient);
+            doctor.Patients.Add(patient);
         }
 
         public void DeletePatient()
@@ -95,21 +95,34 @@ namespace Lab8
             string surname = Console.ReadLine();
             Console.Write("Введіть ім'я: ");
             string name = Console.ReadLine();
+            bool isFound = false;
             foreach (Patient patient in _patientsList)
             {
                 if (patient.Surname == surname && patient.Name == name)
                 {
+                    isFound = true;
                     Console.WriteLine($"Прізвище - {surname}");
                     Console.WriteLine($"Ім'я - {name}");
                     Console.WriteLine("\nЗаписи:\n");
                     patient.MedicalCard.Read();
                 } 
             }
+
+            if (isFound)
+            {
+                Console.WriteLine("Натисніть Enter, щоб закрити");
+                Console.Read();
+            }
+            else
+            {
+                Console.WriteLine("Такого пацієнта нема");
+                Thread.Sleep(1000);
+            }
         }
 
         public Doctor DoctorSearch()
         {
-            Console.Write("Введіть прізвище: ");
+            Console.Write("Введіть прізвище лікаря: ");
             string surname = Console.ReadLine();
             foreach (var doctor in _doctorsList)
             {
@@ -126,6 +139,8 @@ namespace Lab8
 
         public void DoctorsListPrint()
         {
+            Console.OutputEncoding = Encoding.Default;
+            Console.InputEncoding = Encoding.Default;
             foreach (var doctor in _doctorsList)
             {
                 Console.WriteLine($"Прізвище - {doctor.Surname}");
@@ -142,12 +157,12 @@ namespace Lab8
         {
             Console.Write("Введіть спеціальність: ");
             string speciality = Console.ReadLine();
-            Doctor doctor = null;
-            foreach (Doctor doc in GetDoctorsList())
+            bool isDocFound = false;
+            foreach (Doctor doc in DoctorsList)
             {
                 if (doc.Speciality == speciality)
                 {
-                    doctor = doc;
+                    isDocFound = true;
                     Console.WriteLine();
                     Console.WriteLine($"Прізвище - {doc.Surname}");
                     Console.WriteLine($"Ім'я - {doc.Name}");
@@ -163,7 +178,7 @@ namespace Lab8
                 }
             }
 
-            if (doctor == null)
+            if (!isDocFound)
             {
                 Console.WriteLine();
                 Console.WriteLine("Таких лікарів нема");
