@@ -63,7 +63,13 @@ namespace Lab8
         public void ChangePatientData()
         {
             Patient patient = PatientSearch();
-            bool isHealthy = patient?.MedicalCard.AddRecord() ?? false;
+            if (!patient.isExamined)
+            {
+                Console.WriteLine("Спочатку треба пацієнта обстежити. Запишіть на прийом та пройдіть його");
+                Thread.Sleep(1000);
+                return;
+            }
+            bool isHealthy = patient.MedicalCard.AddRecord();
             if (isHealthy)
             {
                 Hospital.PatientsList.Remove(patient);
@@ -90,6 +96,10 @@ namespace Lab8
         public void PassAppointment()
         {
             Patient patient = PatientSearch();
+            if (patient == null)
+            {
+                return;
+            }
             
         }
     }

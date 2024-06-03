@@ -5,6 +5,5 @@
         void AddDoctor();
         void DeleteDoctor();
         void AddPatient();
-        void DeletePatient();
     }        
 }

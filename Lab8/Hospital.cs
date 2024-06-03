@@ -7,26 +7,19 @@ namespace Lab8
 {
     public class Hospital : IChangeable
     {
-        private List<Doctor> _doctorsList = new List<Doctor>();
-        public List<Patient> _patientsList = new List<Patient>();
+        private readonly List<Patient> _patientsList = new List<Patient>();
 
-        public List<Doctor> DoctorsList
-        {
-            get => _doctorsList;
-        }
+        private List<Doctor> DoctorsList { get; } = new List<Doctor>();
 
-        public List<Patient> PatientsList
-        {
-            get => _patientsList;
-        }
-        
+        public List<Patient> PatientsList => _patientsList;
+
         public Hospital()
         {
-            _doctorsList.Add(new Doctor("Микола", "Соколов", new Schedule("10:00", "15:00"), "Кардіолог", this));
-            _doctorsList.Add(new Doctor("Олександр", "Богомолець", new Schedule("11:30", "16:00"), "Онколог", this));
-            _doctorsList.Add(new Doctor("П'єр", "Фошар", new Schedule("09:00", "12:30"), "Стоматолог", this));
-            _doctorsList.Add(new Doctor("Сергій", "Риков", new Schedule("10:00", "13:00"), "Офтальмолог", this));
-            _doctorsList.Add(new Doctor("Тарік", "Акар", new Schedule("11:00", "16:00"), "Гастроентеролог", this));
+            DoctorsList.Add(new Doctor("Микола", "Соколов", new Schedule("10:00", "15:00"), "Кардіолог", this));
+            DoctorsList.Add(new Doctor("Олександр", "Богомолець", new Schedule("11:30", "16:00"), "Онколог", this));
+            DoctorsList.Add(new Doctor("П'єр", "Фошар", new Schedule("09:00", "12:30"), "Стоматолог", this));
+            DoctorsList.Add(new Doctor("Сергій", "Риков", new Schedule("10:00", "13:00"), "Офтальмолог", this));
+            DoctorsList.Add(new Doctor("Тарік", "Акар", new Schedule("11:00", "16:00"), "Гастроентеролог", this));
         }
 
         public void AddDoctor()
@@ -42,7 +35,7 @@ namespace Lab8
             Schedule schedule = new Schedule(workStart, workEnd);
             Console.Write("Введіть спеціальність: ");
             string speciality = Console.ReadLine();
-            _doctorsList.Add(new Doctor(name, surname, schedule, speciality, this));
+            DoctorsList.Add(new Doctor(name, surname, schedule, speciality, this));
             Console.WriteLine("Додано");
             Thread.Sleep(1000);
         }
@@ -52,7 +45,7 @@ namespace Lab8
             Doctor doctor = DoctorSearch();
             if (doctor != null)
             {
-                _doctorsList.Remove(doctor);
+                DoctorsList.Remove(doctor);
                 Console.WriteLine("Видалено");
                 Thread.Sleep(1000);
             }
@@ -81,11 +74,6 @@ namespace Lab8
             Patient patient = new Patient(name, surname, doctor);
             _patientsList.Add(patient);
             doctor.Patients.Add(patient);
-        }
-
-        public void DeletePatient()
-        {
-            return;
         }
         
         public void PatientDataPrint()
@@ -143,7 +131,7 @@ namespace Lab8
         {
             Console.Write("Введіть прізвище лікаря: ");
             string surname = Console.ReadLine();
-            foreach (var doctor in _doctorsList)
+            foreach (var doctor in DoctorsList)
             {
                 if (doctor.Surname == surname)
                 {
@@ -160,7 +148,7 @@ namespace Lab8
         {
             Console.OutputEncoding = Encoding.Default;
             Console.InputEncoding = Encoding.Default;
-            foreach (var doctor in _doctorsList)
+            foreach (var doctor in DoctorsList)
             {
                 Console.WriteLine($"Прізвище - {doctor.Surname}");
                 Console.WriteLine($"Ім'я - {doctor.Name}");
