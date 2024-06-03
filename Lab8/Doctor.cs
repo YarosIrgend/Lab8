@@ -86,5 +86,11 @@ namespace Lab8
             Thread.Sleep(1000);
             return null;
         }
+
+        public void PassAppointment()
+        {
+            Patient patient = PatientSearch();
+            
+        }
     }
 }

@@ -9,6 +9,8 @@ namespace Lab8
         public MedicalCard MedicalCard { get; set; }
         
         public Doctor Doctor { get; set; }
+
+        public bool isExamined = false; 
         
         public Patient(string name, string surname, Doctor doctor)
         {
@@ -18,7 +20,7 @@ namespace Lab8
             Doctor = doctor;
         }
 
-        public void AddAppointment(Hospital hospital)
+        public void AddAppointment()
         {
             Console.Clear();
             Console.Write("Введіть час прийому: ");

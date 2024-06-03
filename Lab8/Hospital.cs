@@ -31,10 +31,10 @@ namespace Lab8
 
         public void AddDoctor()
         {
-            Console.Write("Введіть ім'я: ");
-            string name = Console.ReadLine();
             Console.Write("Введіть прізвище: ");
             string surname = Console.ReadLine();
+            Console.Write("Введіть ім'я: ");
+            string name = Console.ReadLine();
             Console.Write("Введіть початок роботи (від 09:00 до 15:30): ");
             string workStart = Console.ReadLine();
             Console.Write("Введіть кінець роботи (від 09:30 до 16:00): ");
@@ -88,7 +88,7 @@ namespace Lab8
             return;
         }
         
-        public void PatientSearch()
+        public void PatientDataPrint()
         {
             Console.Clear();
             Console.Write("Введіть прізвище: ");
@@ -120,6 +120,25 @@ namespace Lab8
             }
         }
 
+        public Patient PatientSearch()
+        {
+            Console.Clear();
+            Console.Write("Введіть прізвище: ");
+            string surname = Console.ReadLine();
+            Console.Write("Введіть ім'я: ");
+            string name = Console.ReadLine();
+            foreach (Patient patient in PatientsList)
+            {
+                if (patient.Surname == surname && patient.Name == name)
+                {
+                    return patient;
+                }
+            }
+            Console.WriteLine("Такого пацієнта нема");
+            Thread.Sleep(1000);
+            return null;
+        }
+        
         public Doctor DoctorSearch()
         {
             Console.Write("Введіть прізвище лікаря: ");
@@ -150,8 +169,6 @@ namespace Lab8
                 Console.WriteLine($"Спеціальність - {doctor.Speciality}\n");
             }
         }
-
-        public List<Doctor> GetDoctorsList() => _doctorsList;
 
         public void CheckDoctor()
         {

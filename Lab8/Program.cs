@@ -24,8 +24,9 @@ namespace Lab8
     {
         Exit,
         AddPatient,
-        SearchPatient,
+        ShowPatientData,
         EditPatientMedicalCard,
+        MakeAppointment
     }
 
     internal class Program
@@ -134,7 +135,7 @@ namespace Lab8
             {
                 Console.Clear();
                 Console.WriteLine("1 - додати пацієнта");
-                Console.WriteLine("2 - знайти пацієнта");
+                Console.WriteLine("2 - подивитися пацієнта");
                 Console.WriteLine("3 - записати дані в мед. карту");
                 Console.WriteLine("0 - вийти");
                 bool isChoiceValid = false;
@@ -157,8 +158,8 @@ namespace Lab8
                         hospital.AddPatient();
                         break;
                     
-                    case (int)PatientChoices.SearchPatient:
-                        hospital.PatientSearch();
+                    case (int)PatientChoices.ShowPatientData:
+                        hospital.PatientDataPrint();
                         break;
                     
                     case (int)PatientChoices.EditPatientMedicalCard:
@@ -168,6 +169,14 @@ namespace Lab8
                             return;
                         }
                         doctor.ChangePatientData();
+                        break;
+                    case (int)PatientChoices.MakeAppointment:
+                        Patient patient = hospital.PatientSearch();
+                        if (patient == null)
+                        {
+                            return;
+                        }
+                        patient.AddAppointment();
                         break;
                 }
             } while (userChoice != (int)PatientChoices.Exit);
