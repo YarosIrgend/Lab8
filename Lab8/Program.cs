@@ -78,7 +78,7 @@ namespace Lab8
                 Console.WriteLine("2 - видалити лікаря");
                 Console.WriteLine("3 - змінити дані про лікаря");
                 Console.WriteLine("4 - подивитися лікарів");
-                Console.WriteLine("5 - Знайти лікаря за спеціальністю");
+                Console.WriteLine("5 - знайти лікаря за спеціальністю");
                 Console.WriteLine("0 - вийти");
                 bool isChoiceValid = false;
                 while (!isChoiceValid)

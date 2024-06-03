@@ -24,9 +24,8 @@ namespace Lab8
             return false;
         }
 
-        public void ReadMedicalCard()
+        public void Read()
         {
-            Console.Clear();
             foreach (MedicalCardRecord record in medicalCard)
             {
                 Console.WriteLine($"День - {record.Day}");

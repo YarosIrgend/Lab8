@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace Lab8
 {
@@ -46,7 +44,7 @@ namespace Lab8
             }
 
             _workEnd = workEnd;
-            FreeSchedule.CopyTo(_schedule.ToArray());
+            FreeSchedule = new List<string>(_schedule);
         }
     }
 }

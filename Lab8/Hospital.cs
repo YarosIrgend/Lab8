@@ -70,10 +70,10 @@ namespace Lab8
 
         public void AddPatient()
         {
-            Console.Write("Введіть ім'я: ");
-            string name = Console.ReadLine();
             Console.Write("Введіть прізвище: ");
             string surname = Console.ReadLine();
+            Console.Write("Введіть ім'я: ");
+            string name = Console.ReadLine();
             Console.Write("Треба прив'язати до лікаря\n");
             Doctor doctor = DoctorSearch();
             if (doctor == null)
@@ -102,16 +102,9 @@ namespace Lab8
                     Console.WriteLine($"Прізвище - {surname}");
                     Console.WriteLine($"Ім'я - {name}");
                     Console.WriteLine("\nЗаписи:\n");
-                    foreach (MedicalCardRecord record in patient.MedicalCard.medicalCard)
-                    {
-                        Console.WriteLine($"День - {record.Day}");
-                        Console.WriteLine($"Діагноз - {record.Diagnosis}");
-                        Console.WriteLine($"Коментар: {record.Comment}");
-                    }
+                    patient.MedicalCard.Read();
                 } 
             }
-            Console.WriteLine("Натисніть Enter, щоб закрити");
-            Console.Read();
         }
 
         public Doctor DoctorSearch()
@@ -155,6 +148,7 @@ namespace Lab8
                 if (doc.Speciality == speciality)
                 {
                     doctor = doc;
+                    Console.WriteLine();
                     Console.WriteLine($"Прізвище - {doc.Surname}");
                     Console.WriteLine($"Ім'я - {doc.Name}");
                     Console.WriteLine(
@@ -164,18 +158,20 @@ namespace Lab8
                     {
                         Console.Write($"{time}, ");
                     }
-
+                    Console.WriteLine();
                     Console.WriteLine($"Спеціальність - {doc.Speciality}");
                 }
             }
 
             if (doctor == null)
             {
+                Console.WriteLine();
                 Console.WriteLine("Таких лікарів нема");
                 Thread.Sleep(1000);
             }
             else
             {
+                Console.WriteLine();
                 Console.Write("Натисніть Enter, щоб вийти");
                 Console.Read();
             }
