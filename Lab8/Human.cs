@@ -6,6 +6,6 @@ namespace Lab8
     {
         public string Name { get; set; }
         public string Surname { get; set; }
-        public List<Appointment> Appointments { get; set; }
+        public List<Appointment> Appointments { get; set; } = new List<Appointment>();
     }
 }

@@ -53,6 +53,8 @@ namespace Lab8
                     Speciality = speciality;
                     break;
             }
+            Console.WriteLine("Змінено");
+            Thread.Sleep(1000);
         }
 
         public void AddPatient(Patient patient)
@@ -66,7 +68,7 @@ namespace Lab8
             if (!patient.isExamined)
             {
                 Console.WriteLine("Спочатку треба пацієнта обстежити. Запишіть на прийом та пройдіть його");
-                Thread.Sleep(1000);
+                Thread.Sleep(2000);
                 return;
             }
             bool isHealthy = patient.MedicalCard.AddRecord();
@@ -75,6 +77,8 @@ namespace Lab8
                 Hospital.PatientsList.Remove(patient);
                 Patients.Remove(patient);
             }
+            Console.WriteLine("Записано");
+            Thread.Sleep(1000);
         }
 
         public Patient PatientSearch()
@@ -100,7 +104,35 @@ namespace Lab8
             {
                 return;
             }
-            
+
+            bool appointmentExists = false;
+            Appointment appointment = new Appointment();
+            foreach (Appointment appointmentToCheck in patient.Appointments)
+            {
+                if (appointmentToCheck.Doctor == this && appointmentToCheck.Patient == patient)
+                {
+                    appointment = appointmentToCheck;
+                    appointmentExists = true;
+                    break;
+                }
+            }
+
+            if (appointmentExists)
+            {
+                string time = appointment.Time;
+                Appointments.Remove(appointment);
+                patient.Appointments.Remove(appointment);
+                patient.isExamined = true;
+                Schedule.FreeSchedule.Add(time);
+                Schedule.FreeSchedule.Sort();
+                Console.WriteLine("Обстеження проведено. Можна додавати записи пацієнту");
+                Thread.Sleep(2000);
+            }
+            else
+            {
+                Console.WriteLine("Нема запису");
+                Thread.Sleep(1000);
+            }
         }
     }
 }

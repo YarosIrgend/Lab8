@@ -60,6 +60,7 @@ namespace Lab8
 
         public void AddPatient()
         {
+            Console.Clear();
             Console.Write("Введіть прізвище: ");
             string surname = Console.ReadLine();
             Console.Write("Введіть ім'я: ");
@@ -74,6 +75,8 @@ namespace Lab8
             Patient patient = new Patient(name, surname, doctor);
             _patientsList.Add(patient);
             doctor.Patients.Add(patient);
+            Console.WriteLine("Додано");
+            Thread.Sleep(1000);
         }
         
         public void PatientDataPrint()
@@ -154,6 +157,12 @@ namespace Lab8
                 Console.WriteLine($"Ім'я - {doctor.Name}");
                 Console.WriteLine(
                     $"Початок роботи - {doctor.Schedule.WorkStart}, кінець роботи - {doctor.Schedule.WorkEnd}");
+                Console.WriteLine("Вільні записи");
+                foreach (string time in doctor.Schedule.FreeSchedule)
+                {
+                    Console.Write($"{time}, ");
+                }
+                Console.WriteLine();
                 Console.WriteLine($"Спеціальність - {doctor.Speciality}\n");
             }
         }

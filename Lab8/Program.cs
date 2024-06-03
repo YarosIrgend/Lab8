@@ -17,7 +17,8 @@ namespace Lab8
         DeleteDoctor,
         ChangeDoctorData,
         CheckDoctors,
-        CheckDoctor
+        CheckDoctor,
+        PassAppointment
     }
 
     enum PatientChoices
@@ -59,13 +60,14 @@ namespace Lab8
                     }
                 }
 
-                if (userChoice == (int)UserChoices.Doctor)
+                switch (userChoice)
                 {
-                    UsingDoctorInterface(hospital);
-                }
-                else if (userChoice == (int)UserChoices.Patient)
-                {
-                    UsingPatientInterface(hospital);
+                    case (int)UserChoices.Doctor:
+                        UsingDoctorInterface(hospital);
+                        break;
+                    case (int)UserChoices.Patient:
+                        UsingPatientInterface(hospital);
+                        break;
                 }
             } while (userChoice != (int)UserChoices.Exit);
         }
@@ -81,6 +83,7 @@ namespace Lab8
                 Console.WriteLine("3 - змінити дані про лікаря");
                 Console.WriteLine("4 - подивитися лікарів");
                 Console.WriteLine("5 - знайти лікаря за спеціальністю");
+                Console.WriteLine("6 - провести обстеження пацієнту");
                 Console.WriteLine("0 - вийти");
                 bool isChoiceValid = false;
                 while (!isChoiceValid)
@@ -124,6 +127,16 @@ namespace Lab8
                         Console.Clear();
                         hospital.CheckDoctor();
                         break;
+                    
+                    case (int)DoctorChoices.PassAppointment:
+                        Console.Clear();
+                        Doctor doctor = hospital.DoctorSearch();
+                        if (doctor == null)
+                        {
+                            return;
+                        }
+                        doctor.PassAppointment();
+                        break;
                 }
             } while (userChoice != (int)DoctorChoices.Exit);
         }
@@ -137,6 +150,7 @@ namespace Lab8
                 Console.WriteLine("1 - додати пацієнта");
                 Console.WriteLine("2 - подивитися пацієнта");
                 Console.WriteLine("3 - записати дані в мед. карту");
+                Console.WriteLine("4 - записатися на прийом");
                 Console.WriteLine("0 - вийти");
                 bool isChoiceValid = false;
                 while (!isChoiceValid)
@@ -170,6 +184,7 @@ namespace Lab8
                         }
                         doctor.ChangePatientData();
                         break;
+                    
                     case (int)PatientChoices.MakeAppointment:
                         Patient patient = hospital.PatientSearch();
                         if (patient == null)

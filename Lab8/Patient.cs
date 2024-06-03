@@ -29,9 +29,7 @@ namespace Lab8
             {
                 if (time == chosenTime)
                 {
-                    Console.WriteLine("Записано");
                     Doctor.Schedule.FreeSchedule.Remove(time);
-                    Thread.Sleep(1000);
                     Appointment appointment = new Appointment
                     {
                         Time = chosenTime,
@@ -42,6 +40,9 @@ namespace Lab8
                     Doctor.Appointments.Add(appointment);
                     Doctor.AddPatient(this);
                     Doctor.Schedule.FreeSchedule.Remove(chosenTime);
+                    Console.WriteLine("Записано");
+                    Thread.Sleep(1000);
+                    return;
                 }
             }
             Console.WriteLine("Лікар в цей час не приймає або зайнятий");
