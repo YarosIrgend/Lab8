@@ -4,13 +4,21 @@ using System.Threading;
 
 namespace Lab8
 {
+    public enum DoctorData
+    {
+        Name=1,
+        Surname,
+        Schedule,
+        Speciality
+    }
+    
     public class Doctor : Human
     {
-        public Hospital Hospital { get; }
+        private Hospital Hospital { get; }
         public Schedule Schedule { get; private set; }
         public string Speciality { get; private set; }
         
-        public List<Patient> Patients = new List<Patient>();
+        public readonly List<Patient> PatientsList = new List<Patient>();
         
         public Doctor(string name, string surname, Schedule schedule, string speciality, Hospital hospital)
         {
@@ -45,6 +53,13 @@ namespace Lab8
                     Console.Write("Введіть кінець роботи (від 09:30 до 16:00): ");
                     string workEnd = Console.ReadLine();
                     Schedule = new Schedule(workStart, workEnd);
+                    Appointments.Clear();
+                    foreach (Patient patient in PatientsList)
+                    {
+                        patient.Appointments.Clear();
+                        patient.IsExamined = false;
+                        patient.IsAppointed = true;
+                    }
                     break;
                 
                 case (int)DoctorData.Speciality:
@@ -59,13 +74,13 @@ namespace Lab8
 
         public void AddPatient(Patient patient)
         {
-            Patients.Add(patient);
+            PatientsList.Add(patient);
         }
         
         public void ChangePatientData()
         {
             Patient patient = PatientSearch();
-            if (!patient.isExamined)
+            if (!patient.IsExamined)
             {
                 Console.WriteLine("Спочатку треба пацієнта обстежити. Запишіть на прийом та пройдіть його");
                 Thread.Sleep(2000);
@@ -75,17 +90,17 @@ namespace Lab8
             if (isHealthy)
             {
                 Hospital.PatientsList.Remove(patient);
-                Patients.Remove(patient);
+                PatientsList.Remove(patient);
             }
             Console.WriteLine("Записано");
             Thread.Sleep(1000);
         }
 
-        public Patient PatientSearch()
+        private Patient PatientSearch()
         {
             Console.Write("Введіть прізвище пацієнта: ");
             string surname = Console.ReadLine();
-            foreach (Patient patient in Patients)
+            foreach (Patient patient in PatientsList)
             {
                 if (patient.Surname == surname)
                 {
@@ -122,7 +137,8 @@ namespace Lab8
                 string time = appointment.Time;
                 Appointments.Remove(appointment);
                 patient.Appointments.Remove(appointment);
-                patient.isExamined = true;
+                patient.IsExamined = true;
+                patient.IsAppointed = false;
                 Schedule.FreeSchedule.Add(time);
                 Schedule.FreeSchedule.Sort();
                 Console.WriteLine("Обстеження проведено. Можна додавати записи пацієнту");

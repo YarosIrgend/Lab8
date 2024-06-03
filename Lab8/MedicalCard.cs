@@ -5,7 +5,7 @@ namespace Lab8
 {
     public class MedicalCard
     {
-        public List<MedicalCardRecord> medicalCard = new List<MedicalCardRecord>();
+        private readonly List<MedicalCardRecord> _medicalCard = new List<MedicalCardRecord>();
 
         public bool AddRecord()
         {
@@ -20,13 +20,13 @@ namespace Lab8
             {
                 return true;
             }
-            medicalCard.Add(record);
+            _medicalCard.Add(record);
             return false;
         }
 
         public void Read()
         {
-            foreach (MedicalCardRecord record in medicalCard)
+            foreach (MedicalCardRecord record in _medicalCard)
             {
                 Console.WriteLine($"День - {record.Day}");
                 Console.WriteLine($"Діагноз - {record.Diagnosis}");

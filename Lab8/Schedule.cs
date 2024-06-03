@@ -5,19 +5,12 @@ namespace Lab8
     public class Schedule
     {
         private readonly List<string> _schedule = new List<string>();
-        public List<string> FreeSchedule = new List<string>();
-        private readonly string _workEnd;
-        
-        public string WorkStart
-        {
-            get => _schedule[0];
-        }
+        public readonly List<string> FreeSchedule;
 
-        public string WorkEnd
-        {
-            get => _workEnd;
-        }
-        
+        public string WorkStart => _schedule[0];
+
+        public string WorkEnd { get; }
+
         public Schedule(string workStart, string workEnd)
         {
             int startHour = int.Parse(workStart.Substring(0, 2));
@@ -43,7 +36,7 @@ namespace Lab8
                 _schedule.Add($"{endHour}:00");
             }
 
-            _workEnd = workEnd;
+            WorkEnd = workEnd;
             FreeSchedule = new List<string>(_schedule);
         }
     }

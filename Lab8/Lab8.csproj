@@ -42,7 +42,6 @@
     <ItemGroup>
         <Compile Include="Appointment.cs" />
         <Compile Include="Doctor.cs" />
-        <Compile Include="DoctorData.cs" />
         <Compile Include="Hospital.cs" />
         <Compile Include="Human.cs" />
         <Compile Include="IChangeable.cs" />

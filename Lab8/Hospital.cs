@@ -74,7 +74,7 @@ namespace Lab8
 
             Patient patient = new Patient(name, surname, doctor);
             _patientsList.Add(patient);
-            doctor.Patients.Add(patient);
+            doctor.PatientsList.Add(patient);
             Console.WriteLine("Додано");
             Thread.Sleep(1000);
         }
@@ -94,6 +94,7 @@ namespace Lab8
                     isFound = true;
                     Console.WriteLine($"Прізвище - {surname}");
                     Console.WriteLine($"Ім'я - {name}");
+                    Console.WriteLine($"Лікар - {patient.Doctor.Surname}");
                     Console.WriteLine("\nЗаписи:\n");
                     patient.MedicalCard.Read();
                 } 

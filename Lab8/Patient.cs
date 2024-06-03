@@ -1,16 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 
 namespace Lab8
 {
     public class Patient : Human
     {
-        public MedicalCard MedicalCard { get; set; }
+        public MedicalCard MedicalCard { get; }
         
-        public Doctor Doctor { get; set; }
+        public Doctor Doctor { get; }
 
-        public bool isExamined = false; 
+        public bool IsExamined = false;
+
+        public bool IsAppointed = false; 
         
         public Patient(string name, string surname, Doctor doctor)
         {
@@ -22,6 +23,12 @@ namespace Lab8
 
         public void AddAppointment()
         {
+            if (IsAppointed)
+            {
+                Console.WriteLine("Пацієнт вже записаний на прийом");
+                Thread.Sleep(1000);
+                return;
+            }
             Console.Clear();
             Console.Write("Введіть час прийому: ");
             string chosenTime = Console.ReadLine();
@@ -45,6 +52,8 @@ namespace Lab8
                     return;
                 }
             }
+
+            IsAppointed = true;
             Console.WriteLine("Лікар в цей час не приймає або зайнятий");
             Thread.Sleep(1000);
         }

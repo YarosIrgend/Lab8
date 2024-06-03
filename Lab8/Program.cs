@@ -177,6 +177,7 @@ namespace Lab8
                         break;
                     
                     case (int)PatientChoices.EditPatientMedicalCard:
+                        Console.Clear();
                         Doctor doctor = hospital.DoctorSearch();
                         if (doctor == null)
                         {
